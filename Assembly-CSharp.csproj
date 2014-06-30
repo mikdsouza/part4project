@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\MainMenu\Scripts\BackToMainMenu.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\Extra GUI Skins\SkinTest.cs" />
      <Compile Include="Assets\MainMenu\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\MainMenu\Scripts\SceneSelect.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CloudRecoBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CylinderTargetBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DataSetLoadBehaviour.cs" />
