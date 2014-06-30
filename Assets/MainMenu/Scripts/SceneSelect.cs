@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class SceneSelect : MonoBehaviour {
 	public GUISkin MainMenuGUISkin;
 	public GUISkin buttonSkin;
-	List<string> levels = new List<string>();
 	
 	Vector2 scrollPosition;
 	Touch touch;
@@ -29,6 +28,8 @@ public class SceneSelect : MonoBehaviour {
 			GoBack();
 		}
 
+		List<string> levels = new List<string>();
+
 		//Add Levels here
 		levels.Add("example-scene");
 		levels.Add("lol1");
@@ -41,19 +42,19 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add("lol8");
 		levels.Add("lol9");
 		
-		float buttonHeight = heightPercentage(7);
-		float buttonWidth = widthPercentage(80) - 20;
+		float buttonHeight = heightPercentage(5);
+		float buttonWidth = widthPercentage(75);
 		float buttonSpacing = heightPercentage(2);
 		float buttonX = widthPercentage(11);
 		float buttonY = heightPercentage(36);
-		float totalHeight = levels.Count * (buttonHeight + buttonSpacing);
+		float totalHeight = levels.Count * (buttonHeight + buttonSpacing) - buttonSpacing;
 		GUIStyle buttonStyle = buttonSkin.button;
-		buttonStyle.fontSize = (int) heightPercentage(4);
+		buttonStyle.fontSize = (int) heightPercentage(3);
 		buttonStyle.alignment = TextAnchor.MiddleLeft;
 		
 		//Create the scroll view
 		scrollPosition = GUI.BeginScrollView(
-				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80), heightPercentage(60)),
+				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80), heightPercentage(55)),
 				scrollPosition, 
 				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80) - 20, totalHeight),
 				false, false);
@@ -93,8 +94,7 @@ public class SceneSelect : MonoBehaviour {
 	}
 
 	void GoBack() {
-		GetComponent<MainMenu>().enabled = true;
-			GetComponent<SceneSelect>().enabled = false;
+		Application.LoadLevel ("MainMenu-scene");
 	}
 
 	/// <summary>

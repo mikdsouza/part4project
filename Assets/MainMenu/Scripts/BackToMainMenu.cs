@@ -15,6 +15,6 @@ public class BackToMainMenu : MonoBehaviour {
 	}
 	
 	void ToMainMenu() {
-		Application.LoadLevel("MainMenu-scene");
+		Application.LoadLevel("SceneSelect");
 	}
 }

@@ -20,10 +20,7 @@ public class MainMenu : MonoBehaviour {
 		
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(24),widthPercentage(80),heightPercentage(10)), "Scenes")) {
-			GetComponent<SceneSelect>().enabled = true;
-			GetComponent<MainMenu>().enabled = false;
-			
-			//Application.LoadLevel("example-scene");
+			Application.LoadLevel("SceneSelect");
 		}
 		
 		// Make the second button.
