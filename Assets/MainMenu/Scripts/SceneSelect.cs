@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SceneSelect : MonoBehaviour {
 	public GUISkin MainMenuGUISkin;
+	public GUISkin buttonSkin;
+	List<string> levels = new List<string>();
+	
+	Vector2 scrollPosition;
+	Touch touch;
 		
 	void OnGUI () {
 		MainMenuGUISkin.button.fontSize = (int) heightPercentage(4);
@@ -22,6 +28,48 @@ public class SceneSelect : MonoBehaviour {
 		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(24),widthPercentage(80),heightPercentage(10)), "Go Back")) {
 			GoBack();
 		}
+
+		//Add Levels here
+		levels.Add("example-scene");
+		levels.Add("lol1");
+		levels.Add("lol2");
+		levels.Add("lol3");
+		levels.Add("lol4");
+		levels.Add("lol5");
+		levels.Add("lol6");
+		levels.Add("lol7");
+		levels.Add("lol8");
+		levels.Add("lol9");
+		
+		float buttonHeight = heightPercentage(7);
+		float buttonWidth = widthPercentage(80) - 20;
+		float buttonSpacing = heightPercentage(2);
+		float buttonX = widthPercentage(11);
+		float buttonY = heightPercentage(36);
+		float totalHeight = levels.Count * (buttonHeight + buttonSpacing);
+		GUIStyle buttonStyle = buttonSkin.button;
+		buttonStyle.fontSize = (int) heightPercentage(4);
+		buttonStyle.alignment = TextAnchor.MiddleLeft;
+		
+		//Create the scroll view
+		scrollPosition = GUI.BeginScrollView(
+				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80), heightPercentage(60)),
+				scrollPosition, 
+				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80) - 20, totalHeight),
+				false, false);
+			
+			for(int i = 0; i < levels.Count; i++)
+			{
+				if (GUI.Button(
+						new Rect(buttonX, buttonY, buttonWidth ,buttonHeight),
+						"Scene: " + levels[i], buttonStyle)) {
+					Application.LoadLevel(levels[i]);
+				}
+				
+				buttonY += buttonHeight + buttonSpacing;
+			}
+		
+		GUI.EndScrollView();
 	}
 
 	// Use this for initialization
@@ -32,7 +80,16 @@ public class SceneSelect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) 
-			GoBack();	
+			GoBack();
+		
+		if(Input.touchCount > 0)
+		{
+			touch = Input.touches[0];
+			if (touch.phase == TouchPhase.Moved)
+			{
+				scrollPosition.y += touch.deltaPosition.y;
+			}
+		}
 	}
 
 	void GoBack() {
