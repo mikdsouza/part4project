@@ -5,8 +5,9 @@ public class MainMenu : MonoBehaviour {
 	public GUISkin MainMenuGUISkin;
 		
 	void OnGUI () {
-		MainMenuGUISkin.button.fontSize = (int) heightPercentage(7);
-		MainMenuGUISkin.box.fontSize = (int) heightPercentage(9);
+		MainMenuGUISkin.button.fontSize = (int) heightPercentage(4);
+		MainMenuGUISkin.box.fontSize = (int) heightPercentage(6);
+		MainMenuGUISkin.label.fontSize = (int) heightPercentage(2);
 		GUI.skin = MainMenuGUISkin;
 		createMenu();
 	}
@@ -14,15 +15,19 @@ public class MainMenu : MonoBehaviour {
 	//Crete the main menu
 	void createMenu() {
 		// Make a background box
-		GUI.Box(new Rect(widthPercentage(10),heightPercentage(10),widthPercentage(80),heightPercentage(80)), "Main Menu");
+		GUI.Box(new Rect(widthPercentage(5),heightPercentage(5),widthPercentage(90),heightPercentage(90)), "FrameCAD AR");
+		GUI.Label(new Rect(widthPercentage(5), heightPercentage(13), widthPercentage(90), heightPercentage(4)), "Created by Mikhail and James");
 		
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect(widthPercentage(20),heightPercentage(24),widthPercentage(60),heightPercentage(10)), "Scenes")) {
-			Application.LoadLevel("example-scene");
+		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(24),widthPercentage(80),heightPercentage(10)), "Scenes")) {
+			GetComponent<SceneSelect>().enabled = true;
+			GetComponent<MainMenu>().enabled = false;
+			
+			//Application.LoadLevel("example-scene");
 		}
 		
 		// Make the second button.
-		if(GUI.Button(new Rect(widthPercentage(20),heightPercentage(36),widthPercentage(60),heightPercentage(10)), "Exit")) {
+		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80),heightPercentage(10)), "Exit")) {
 			Quit();
 		}
 	}
