@@ -19,6 +19,9 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 
 		foreach( MeshFilter mesh in gameObject.GetComponentsInChildren<MeshFilter>())
 		{
+			if (mesh.tag != "GameController")
+				continue;
+
 			mesh.gameObject.AddComponent("changeColour");
 			(mesh.GetComponent(typeof(changeColour)) as changeColour).init();
 		}
@@ -58,6 +61,9 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 		numberOfObjects = 0;
 
 		foreach (MeshFilter mesh in gameObject.GetComponentsInChildren<MeshFilter>()) {
+			if (mesh.tag != "GameController")
+				continue;
+
 			numberOfObjects++;
 
 			if ((mesh.GetComponent(typeof(changeColour)) as changeColour).found()) 
