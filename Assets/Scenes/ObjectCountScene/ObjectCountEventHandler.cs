@@ -7,7 +7,7 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 	
 	private bool showLabel = false;
 	private Rect labelBox = new Rect(0,0,1920,1080);
-	private int numberOfObjects = 3;
+	private int numberOfObjects = 0;
 
 	void Start () {
 
@@ -15,6 +15,12 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 		if (mTrackableBehaviour)
 		{
 			mTrackableBehaviour.RegisterTrackableEventHandler(this);
+		}
+
+		foreach( MeshFilter mesh in gameObject.GetComponentsInChildren<MeshFilter>())
+		{
+			mesh.gameObject.AddComponent("changeColour");
+			(mesh.GetComponent(typeof(changeColour)) as changeColour).init();
 		}
 	}
 	
@@ -36,6 +42,7 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 	void OnGUI() {
 		if (showLabel) {
 			GUI.skin.label.fontSize = Screen.currentResolution.height / 15;
+			countObjects();
 
 			if (numberOfObjects == 0)
 				GUI.skin.label.normal.textColor = Color.blue;
@@ -43,6 +50,18 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 				GUI.skin.label.normal.textColor = Color.red;
 
 			GUI.Label (labelBox, numberOfObjects.ToString());
+		}
+	}
+
+	void countObjects()
+	{
+		numberOfObjects = 0;
+
+		foreach (MeshFilter mesh in gameObject.GetComponentsInChildren<MeshFilter>()) {
+			numberOfObjects++;
+
+			if ((mesh.GetComponent(typeof(changeColour)) as changeColour).found()) 
+				numberOfObjects--;
 		}
 	}
 }

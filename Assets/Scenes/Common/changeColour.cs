@@ -2,23 +2,37 @@
 using System.Collections;
 
 public class changeColour : MonoBehaviour {
-	private int num;
+	private enum foundState { FOUND, NOTFOUND };
+	private foundState state = foundState.FOUND;
+
+	private Material foundMat, notFoundMat;
+
 	void start(){
-		renderer.material.color = Color.green;
-		num = 1;
+
+	}
+
+	public bool found() 
+	{
+		return state == foundState.FOUND;
+	}
+
+	public void init()
+	{
+		foundMat = Resources.Load<Material> ("found");
+		notFoundMat = Resources.Load<Material> ("notFound");
+		OnMouseUp ();
 	}
 
 	void OnMouseUp(){
-		
-			if(num == 1) {
-				renderer.material.color = Color.red;
-				num = 0;
-			}
-			else {
-				renderer.material.color = Color.green;
-				num = 1;
-			}
-		
+		if(state == foundState.NOTFOUND) {
+
+			renderer.material = foundMat;
+			state = foundState.FOUND;
+		}
+		else {
+			renderer.material = notFoundMat;
+			state = foundState.NOTFOUND;
+		}
 	}
 	
 	// Update is called once per frame
