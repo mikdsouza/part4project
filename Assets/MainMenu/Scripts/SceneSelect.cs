@@ -35,6 +35,7 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add("axes-scene");
 		levels.Add("ObjectCount-Scene");
 		levels.Add("ShowOff-Scene");
+		levels.Add ("HourGlass-Scene");
 //		levels.Add("lol2");
 //		levels.Add("lol3");
 //		levels.Add("lol4");
