@@ -6,7 +6,7 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 	private TrackableBehaviour mTrackableBehaviour;
 	
 	private bool showLabel = false;
-	private Rect labelBox = new Rect(0,0,1920,1080);
+	private Rect labelBox = new Rect(20,20,1920,1080);
 	private int numberOfObjects = 0;
 
 	void Start () {
