@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class changeColour : MonoBehaviour {
-	private enum foundState { FOUND, NOTFOUND };
+	private enum foundState { NOTFOUND, FOUND };
 	private foundState state = foundState.FOUND;
 
 	private Material foundMat, notFoundMat;
