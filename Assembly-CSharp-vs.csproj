@@ -76,6 +76,7 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
      <Compile Include="Assets\Scenes\Common\ObjectCountEventHandler.cs" />
      <Compile Include="Assets\Scenes\Common\ObjectCountOffset.cs" />
+     <Compile Include="Assets\Scenes\Common\SaveButton.cs" />
      <Compile Include="Assets\Scenes\Common\ScreenshotButton.cs" />
      <Compile Include="Assets\Scenes\Common\changeColour.cs" />
      <None Include="Assets\readme_SDK.txt" />

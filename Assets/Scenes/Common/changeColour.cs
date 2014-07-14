@@ -7,32 +7,51 @@ public class changeColour : MonoBehaviour {
 
 	private Material foundMat, notFoundMat;
 
+	private string id = "";
+	public string ID {
+		get { return id;}
+	}
+
 	void start(){
 
 	}
 
-	public bool found() 
-	{
-		return state == foundState.FOUND;
+	public bool Found {
+		get { return state == foundState.FOUND;}
+	}
+
+	public int State {
+		get { return (int)state;}
+		set { state = (foundState)value; setTexture(state);}
+	}
+
+	private void setTexture(foundState fState) {
+		if(fState == foundState.NOTFOUND)
+			renderer.material = notFoundMat;
+		else 
+			renderer.material = foundMat;			
 	}
 
 	public void init()
 	{
+		id = Application.loadedLevelName + "." + name + "." + transform.position.x + 
+				"." + transform.position.y + "." + transform.position.z + "." + 
+				transform.rotation.x + "." + transform.rotation.y + "." + 
+				transform.rotation.z + "." +	transform.localScale.x + "." + 
+				transform.localScale.y + "." + transform.localScale.z;
+
 		foundMat = Resources.Load<Material> ("found");
 		notFoundMat = Resources.Load<Material> ("notFound");
 		OnMouseUp ();
 	}
 
 	void OnMouseUp(){
-		if(state == foundState.NOTFOUND) {
-
-			renderer.material = foundMat;
+		if(state == foundState.NOTFOUND)
 			state = foundState.FOUND;
-		}
-		else {
-			renderer.material = notFoundMat;
+		else 
 			state = foundState.NOTFOUND;
-		}
+
+		setTexture (state);
 	}
 	
 	// Update is called once per frame

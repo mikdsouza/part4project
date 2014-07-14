@@ -9,7 +9,7 @@ public class ObjectCountOffset : MonoBehaviour {
 	void Start () {
 		markers = new List<ObjectCountEventHandler> ();
 
-		GameObject[] objs = GameObject.FindSceneObjectsOfType(typeof(GameObject)) as GameObject[];
+		GameObject[] objs = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
 		foreach (GameObject obj in objs) {
 			if(obj.GetComponent<ObjectCountEventHandler>() != null) {
 				markers.Add(obj.GetComponent<ObjectCountEventHandler>());

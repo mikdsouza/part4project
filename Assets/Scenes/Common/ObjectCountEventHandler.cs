@@ -84,7 +84,7 @@ public class ObjectCountEventHandler : MonoBehaviour, ITrackableEventHandler {
 
 			numberOfObjects++;
 
-			if ((mesh.GetComponent(typeof(changeColour)) as changeColour).found()) 
+			if ((mesh.GetComponent(typeof(changeColour)) as changeColour).Found) 
 				numberOfObjects--;
 		}
 	}
