@@ -10,12 +10,10 @@ public class ApplyAll : MonoBehaviour {
 		gameObject.AddComponent("BackToMainMenu");
 		
 		//Apply the Object counting scripts
-		List<DefaultTrackableEventHandler> markers = new List<DefaultTrackableEventHandler> ();
-
 		GameObject[] objs = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
 		foreach (GameObject obj in objs) {
 			if(obj.GetComponent<DefaultTrackableEventHandler>() != null) {
-				gameObject.AddComponent("ObjectCountEventHandler");
+				obj.AddComponent("ObjectCountEventHandler");
 			}
 		}
 		gameObject.AddComponent("ObjectCountOffset");
