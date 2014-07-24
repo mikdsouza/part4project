@@ -35,7 +35,8 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		ServerSettings.serverAddress = PlayerPrefs.GetString("serverAddress", "127.0.0.1:80");
+		ServerSettings.useServer = PlayerPrefs.GetInt("useServer") == 1;
 	}
 	
 	// Update is called once per frame

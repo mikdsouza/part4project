@@ -62,9 +62,9 @@ public class ServerSettings : MonoBehaviour {
 		PlayerPrefs.SetString("serverAddress", serverAddress);
 
 		if(useServer)
-			PlayerPrefs.SetInt("userServer", 1);
+			PlayerPrefs.SetInt("useServer", 1);
 		else
-			PlayerPrefs.SetInt("userServer", 0);
+			PlayerPrefs.SetInt("useServer", 0);
 
 		Application.LoadLevel ("MainMenu-scene");
 	}

@@ -12,11 +12,17 @@ class ARDatabase(object):
 	
 	
 	def insertToDB(self, str_id, state, time):
-		dbcon.insertIntoDB(str_id, state, time, cherrypy.request.remote.ip)
+		self.dbcon.insertIntoDB(str_id, state, time, cherrypy.request.remote.ip)
 		return ""
 	insertToDB.exposed = True
 	
-	mappings = [(r'^/([^/]+)$', index), (r'^/insertToDB/(\d+)$', insertToDB)]
+	def getFromDB(self, str_id):
+		return self.dbcon.getDataForID(str_id)
+	getFromDB.exposed = True
+	
+# 	mappings = [(r'^/([^/]+)$', index), 
+# 			(r'^/insertToDB/(\d+)$', insertToDB),
+# 			(r'^/getFromDB/(\d+)$', getFromDB)]
 	
 class DBController:
 	
@@ -84,9 +90,25 @@ class DBController:
 			''' % (str_id, state, time, ip))
 		conn.commit()
 		conn.close()
+	
+	def getDataForID(self, str_id):
+		conn = sqlite3.connect(self.db_filename)
+		c = conn.cursor()
+		c.execute('''
+			SELECT state, time
+			FROM objects
+			WHERE id = \"%s\"
+			''' % (str_id))
+		
+		returnString = ""
+		for row in c.fetchall():
+			state, time = row
+			returnString = "%d,%f" % (state, time)
+		
+		conn.commit()
+		conn.close()
+		
+		return returnString
 
-dbcon = DBController()
-print dbcon.getAllDataInHTML()
-
-cherrypy.config.update({'server.socket_host': '127.0.0.1','server.socket_port': 80}) 
+cherrypy.config.update({'server.socket_host': '192.168.0.2','server.socket_port': 80}) 
 cherrypy.quickstart(ARDatabase())
