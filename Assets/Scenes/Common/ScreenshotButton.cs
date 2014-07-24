@@ -13,8 +13,23 @@ public class ScreenshotButton : MonoBehaviour {
 			takeScreenshot();
 		}
 	}
-	
+
+
 	void takeScreenshot() {
-		// Android intent shiz taken out of here coz it's not ready yet
+		#if UNITY_ANDROID
+		// Take the screenshot
+		string filename = "screenshot" + screenshotCount + ".png";
+		Application.CaptureScreenshot(filename);
+		string origin = System.IO.Path.Combine(Application.persistentDataPath, filename);
+
+		//Grab the current activity
+		AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+		AndroidJavaObject activity = jc.GetStatic<AndroidJavaObject>("currentActivity");
+
+		// Call the Android intent
+		activity.Call("sendEmail", "james.s.mcarthur@gmail.com", origin);
+
+		screenshotCount++;
+		#endif
 	}
 }

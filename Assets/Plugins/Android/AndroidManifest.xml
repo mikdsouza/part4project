@@ -14,13 +14,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+	<!--android:name="com.qualcomm.QCARUnityPlayer.QCARPlayerNativeActivity"-->
     <application
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
         android:debuggable="false">
-        <activity android:name="com.qualcomm.QCARUnityPlayer.QCARPlayerNativeActivity"
+        <activity android:name="com.softeng.unityar.ScreenshotActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
@@ -36,6 +38,9 @@
                   android:screenOrientation="portrait"
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
         </activity>
+		<!--<activity android:name="com.softeng.unityar.ScreenshotActivity"
+				  android:label="@string/app_name">
+		</activity>-->
     </application>
 </manifest>
 
