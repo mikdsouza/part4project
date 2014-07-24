@@ -6,6 +6,7 @@ public class SaveButton : MonoBehaviour {
 	public Texture2D imageSave, imageLoad;
 	public GUIStyle style;
 	List<GameObject> markers;
+	private string serverURL;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,8 @@ public class SaveButton : MonoBehaviour {
 				markers.Add(obj);
 			}
 		}
+
+		serverURL = ServerSettings.serverAddress + "/insertToDB";
 	}
 	
 	// Update is called once per frame
@@ -50,10 +53,30 @@ public class SaveButton : MonoBehaviour {
 	void saveToServer() {
 		foreach(GameObject marker in markers) {
 			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
+				WWWForm form = new WWWForm();
+				form.AddField("str_id", obj.ID);
+				form.AddField("state", obj.State);
+				form.AddField("time", Time.time.ToString());
+				WWW www = new WWW(serverURL, form);
 
+				StartCoroutine(WaitForRequest(www));
 			}
 		}
 	}
+
+	//Taken from http://answers.unity3d.com/questions/11021/how-can-i-send-and-receive-data-to-and-from-a-url.html
+	IEnumerator WaitForRequest(WWW www)
+	{
+		yield return www;
+
+		// check for errors
+		if (www.error == null) {
+			Debug.Log("WWW Ok!: " + www.data);
+		} 
+		else {
+			Debug.Log("WWW Error: "+ www.error);
+		}    
+	}   
 
 	public void load() {
 		foreach (GameObject marker in markers) {

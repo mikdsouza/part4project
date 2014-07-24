@@ -13,7 +13,7 @@ class ARDatabase(object):
 	
 	def insertToDB(self, str_id, state, time):
 		dbcon.insertIntoDB(str_id, state, time, cherrypy.request.remote.ip)
-		return str_id
+		return ""
 	insertToDB.exposed = True
 	
 	mappings = [(r'^/([^/]+)$', index), (r'^/insertToDB/(\d+)$', insertToDB)]
@@ -79,7 +79,7 @@ class DBController:
 		conn = sqlite3.connect(self.db_filename)
 		c = conn.cursor()
 		c.execute('''
-			INSERT INTO objects (id, state, time, ip)
+			INSERT OR REPLACE INTO objects (id, state, time, ip)
 			VALUES(\"%s\", %s, %s, \"%s\")
 			''' % (str_id, state, time, ip))
 		conn.commit()
