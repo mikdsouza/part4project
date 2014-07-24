@@ -22,9 +22,13 @@ public class MainMenu : MonoBehaviour {
 		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(24),widthPercentage(80),heightPercentage(10)), "Scenes")) {
 			Application.LoadLevel("SceneSelect");
 		}
-		
-		// Make the second button.
-		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80),heightPercentage(10)), "Exit")) {
+
+		if(GUI.Button(new Rect(widthPercentage(10), heightPercentage(36), widthPercentage(80), heightPercentage(10)), "Server Settings")) {
+			showServerSettings();
+		}
+
+		// Make the LAST button.
+		if(GUI.Button(new Rect(widthPercentage(10),heightPercentage(48),widthPercentage(80),heightPercentage(10)), "Exit")) {
 			Quit();
 		}
 	}
@@ -44,13 +48,17 @@ public class MainMenu : MonoBehaviour {
 		Application.Quit();
 	}
 
+	void showServerSettings() {
+		Application.LoadLevel("ServerSettings");
+	}
+
 	/// <summary>
 	/// Return the number of pixels that corresponds to that percentage
 	/// of the screen width
 	/// </summary>
 	/// <returns>Rectures a number of pixels</returns>
 	/// <param name="percent">Number between 0 and 100</param>
-	float widthPercentage(float percent) {
+	public static float widthPercentage(float percent) {
 		return (percent / 100) * Screen.currentResolution.width;
 	}
 
@@ -60,7 +68,7 @@ public class MainMenu : MonoBehaviour {
 	/// </summary>
 	/// <returns>Rectures a number of pixels</returns>
 	/// <param name="percent">Number between 0 and 100</param>
-	float heightPercentage(float percent) {
+	public static float heightPercentage(float percent) {
 		return (percent / 100) * Screen.currentResolution.height;
 	}
 }
