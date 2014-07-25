@@ -20,8 +20,8 @@ public class SaveButton : MonoBehaviour {
 			}
 		}
 
-		serverURLPost = ServerSettings.serverAddress + "/insertToDB";
-		serverURLGet = ServerSettings.serverAddress + "/getFromDB";
+		serverURLPost = "http://" + ServerSettings.serverAddress + "/insertToDB";
+		serverURLGet = "http://" + ServerSettings.serverAddress + "/getFromDB";
 	}
 	
 	// Update is called once per frame
@@ -40,6 +40,7 @@ public class SaveButton : MonoBehaviour {
 	}
 
 	void save(){
+		Debug.Log ("Performing save action");
 		foreach(GameObject marker in markers) {
 			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
 				//PlayerPrefs.SetInt(obj.ID, obj.State);
@@ -53,6 +54,7 @@ public class SaveButton : MonoBehaviour {
 	}
 
 	void saveToServer() {
+		Debug.Log ("Performing save to server action");
 		foreach(GameObject marker in markers) {
 			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
 				WWWForm form = new WWWForm();
@@ -111,6 +113,7 @@ public class SaveButton : MonoBehaviour {
 	}   
 
 	public void load() {
+		Debug.Log("Performing load action");
 		foreach (GameObject marker in markers) {
 			foreach (changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
 				//obj.State = PlayerPrefs.GetInt(obj.ID);
