@@ -110,5 +110,5 @@ class DBController:
 		
 		return returnString
 
-cherrypy.config.update({'server.socket_host': '192.168.0.2','server.socket_port': 80}) 
+cherrypy.config.update({'server.socket_host': '0.0.0.0','server.socket_port': 80}) 
 cherrypy.quickstart(ARDatabase())
