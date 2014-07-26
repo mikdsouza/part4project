@@ -25,6 +25,10 @@ public class changeColour : MonoBehaviour {
 		set { state = (foundState)value; setTexture(state);}
 	}
 
+	public string Scene {
+		get { return Application.loadedLevelName; }
+	}
+
 	private void setTexture(foundState fState) {
 		if(fState == foundState.NOTFOUND)
 			renderer.material = notFoundMat;
