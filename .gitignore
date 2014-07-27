@@ -58,3 +58,4 @@ Icon?
 ehthumbs.db
 Thumbs.db
 Server/*.db
+*.pyc

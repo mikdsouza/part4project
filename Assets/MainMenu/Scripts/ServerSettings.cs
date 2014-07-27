@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ServerSettings : MonoBehaviour {
-	public GUISkin MainMenuGUISkin;
+	public GUISkin MainMenuGUISkin, ButtonGUI;
 	public static string serverAddress = "127.0.0.1:80";
 	public static bool useServer = false;
 
@@ -25,6 +25,7 @@ public class ServerSettings : MonoBehaviour {
 		MainMenuGUISkin.toggle.fontSize = (int) MainMenu.heightPercentage(3);
 		MainMenuGUISkin.box.fontSize = (int) MainMenu.heightPercentage(6);
 		MainMenuGUISkin.label.fontSize = (int) MainMenu.heightPercentage(2);
+		ButtonGUI.label.fontSize = (int) MainMenu.heightPercentage(3);
 		GUI.skin = MainMenuGUISkin;
 		createServerSettingsGUI();
 	}
@@ -54,8 +55,14 @@ public class ServerSettings : MonoBehaviour {
 		useServer = GUI.Toggle(new Rect(
 			MainMenu.widthPercentage(10),
 			MainMenu.heightPercentage(48),
-			MainMenu.widthPercentage(80),
+			MainMenu.heightPercentage(3),
 			MainMenu.heightPercentage(3)), useServer, "Use server");
+
+		GUI.Label(new Rect(
+			MainMenu.widthPercentage(11) + MainMenu.heightPercentage(3),
+			MainMenu.heightPercentage(48),
+			MainMenu.widthPercentage(79) - MainMenu.heightPercentage(3),
+			MainMenu.heightPercentage(3)), "Use Server", ButtonGUI.label);
 	}
 
 	void GoBack() {
