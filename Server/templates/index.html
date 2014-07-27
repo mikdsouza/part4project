@@ -1,20 +1,23 @@
-<table border="1">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>State</th>
-			<th>Time</th>
-			<th>IP</th>
-		</tr>
-	</thead>
-	<tbody>
-		% for object in objects:
-			<tr>
-				<td>${object.identifier}</td>
-				<td>${object.state}</td>
-				<td>${object.time}</td>
-				<td>${object.ip}</td>
-			</tr>
-		% endfor
-	</tbody>
-</table>
+<%inherit file="base.html"/>
+
+<%block name="title">Scenes</%block>
+
+        <h1>UnityAR - Scenes</h1>
+		<div class="table-container">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Progress</th>
+					</tr>
+				</thead>
+				<tbody>
+					% for scene in scenes:
+						<tr>
+							<td><a href="/scene?id=${scene.id}">${scene.name}</a></td>
+							<td>${scene.getObjectCount()} / ${scene.getCheckedObjectCount()}</td>
+						</tr>
+					% endfor
+				</tbody>
+			</table>
+		</div>

@@ -2,17 +2,25 @@ import cherrypy
 from models import *
 from peewee import DoesNotExist
 from cherrypy_mako import *
+import os
 
 class ARDatabase(object):		
 	def __init__(self):
 		create_db()
 		
+	############### ADMIN INTERFACE ###############
 	@cherrypy.expose
 	@cherrypy.tools.mako(filename="index.html")
 	def index(self):
-		#return self.dbcon.getAllDataInHTML()
-		return {'objects': Object.select()}
+		return {'scenes': Scene.select()}
+		
+	@cherrypy.expose
+	@cherrypy.tools.mako(filename="scene.html")
+	def scene(self, id):
+		scene = Scene.get(Scene.id == id)
+		return {'scene': scene, 'objects': scene.objects.select()}
 
+	############### UNITY INTERFACE ###############
 	@cherrypy.expose
 	def insertToDB(self, scene_name, str_id, state, time):
 		try:
@@ -39,5 +47,13 @@ class ARDatabase(object):
 		object = Object.get(Object.identifier == str_id)
 		return "%d,%f" % (object.state, object.time)
 	
-cherrypy.config.update({'server.socket_host': '0.0.0.0','server.socket_port': 80, 'tools.mako.collection_size': 500, 'tools.mako.directories': 'templates'}) 
+print(os.path.dirname(os.path.realpath(__file__)) + '\static')
+cherrypy.config.update({
+	'server.socket_host': '0.0.0.0',
+	'server.socket_port': 80, 
+	'tools.mako.collection_size': 500, 
+	'tools.mako.directories': 'templates',
+	'tools.staticdir.on' : True,
+	'tools.staticdir.dir' : os.path.dirname(os.path.realpath(__file__)) + '\static'
+}) 
 cherrypy.quickstart(ARDatabase())

@@ -1,0 +1,32 @@
+body {
+  padding-top: 50px;
+  	background: #eee;
+}
+.unityar {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.table-container {
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	background: #fff;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.object-container {
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+	background: #fff;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.table-container  td{
+	padding: 5px;
+}

@@ -1,0 +1,28 @@
+<%inherit file="base.html"/>
+
+<%block name="title">${scene.name}</%block>
+
+<h1>${scene.name}</h1>
+
+<div class="object-container">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Identifier</th>
+				<th>State</th>
+				<th>Time</th>
+				<th>IP</th>
+			</tr>
+		</thead>
+		<tbody>
+			% for object in objects:
+				<tr>
+					<td>${object.identifier}</td>
+					<td>${object.state}</td>
+					<td>${object.time}</td>
+					<td>${object.ip}</td>
+				</tr>
+			%endfor
+		</tbody>
+	</table>
+</div>
