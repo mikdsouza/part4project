@@ -1,29 +1,41 @@
 import cherrypy
-from UnityARDatabase import UnityARDatabase
+from models import *
+from peewee import DoesNotExist
 
 class ARDatabase(object):		
 	def __init__(self):
-		self.dbcon = UnityARDatabase()
+		create_db()
 		
 	@cherrypy.expose
 	def index(self):
-		return self.dbcon.getAllDataInHTML()	
+		#return self.dbcon.getAllDataInHTML()
+		return "hello"
 
 	@cherrypy.expose
-	def insertToDB(self, scene, str_id, state, time):
-		self.dbcon.insertObject(scene, str_id, state, time, cherrypy.request.remote.ip)
+	def insertToDB(self, scene_name, str_id, state, time):
+		try:
+			object = Object.get(Object.identifier == str_id)
+			object.state = int(state) == 1
+			object.time = time
+			object.ip = cherrypy.request.remote.ip
+			object.save()
+			
+		except DoesNotExist:
+			scene = Scene.get_or_create(name = scene_name)
+			object = Object.create(
+				identifier = str_id,
+				scene = scene,
+				state = int(state) == 1,
+				ip = cherrypy.request.remote.ip,
+				time = time
+			)
+			
 		return ""
 	
 	@cherrypy.expose
 	def getFromDB(self, str_id):
-		return self.dbcon.getDataForID(str_id)
+		object = Object.get(Object.identifier == str_id)
+		return "%d,%f" % (object.state, object.time)
 	
-# 	mappings = [(r'^/([^/]+)$', index), 
-# 			(r'^/insertToDB/(\d+)$', insertToDB),
-# 			(r'^/getFromDB/(\d+)$', getFromDB)]
-	
-controller = ARDatabase()
-
 cherrypy.config.update({'server.socket_host': '0.0.0.0','server.socket_port': 80}) 
-cherrypy.engine.subscribe('start_thread', controller.dbcon.connect) 
-cherrypy.quickstart(controller)
+cherrypy.quickstart(ARDatabase())
