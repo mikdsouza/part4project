@@ -1,15 +1,17 @@
 import cherrypy
 from models import *
 from peewee import DoesNotExist
+from cherrypy_mako import *
 
 class ARDatabase(object):		
 	def __init__(self):
 		create_db()
 		
 	@cherrypy.expose
+	@cherrypy.tools.mako(filename="index.html")
 	def index(self):
 		#return self.dbcon.getAllDataInHTML()
-		return "hello"
+		return {'objects': Object.select()}
 
 	@cherrypy.expose
 	def insertToDB(self, scene_name, str_id, state, time):
@@ -37,5 +39,5 @@ class ARDatabase(object):
 		object = Object.get(Object.identifier == str_id)
 		return "%d,%f" % (object.state, object.time)
 	
-cherrypy.config.update({'server.socket_host': '0.0.0.0','server.socket_port': 80}) 
+cherrypy.config.update({'server.socket_host': '0.0.0.0','server.socket_port': 80, 'tools.mako.collection_size': 500, 'tools.mako.directories': 'templates'}) 
 cherrypy.quickstart(ARDatabase())
