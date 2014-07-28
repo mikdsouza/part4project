@@ -22,30 +22,23 @@ class ARDatabase(object):
 
 	############### UNITY INTERFACE ###############
 	@cherrypy.expose
-	def insertToDB(self, scene_name, str_id, state, time):
-		try:
-			object = Object.get(Object.identifier == str_id)
-			object.state = int(state) == 1
-			object.time = time
-			object.ip = cherrypy.request.remote.ip
-			object.save()
-			
-		except DoesNotExist:
-			scene = Scene.get_or_create(name = scene_name)
-			object = Object.create(
-				identifier = str_id,
-				scene = scene,
-				state = int(state) == 1,
-				ip = cherrypy.request.remote.ip,
-				time = time
-			)
+	def insertToDB(self, data):
+		for object in data.split(";")[:-1]:
+			params = object.split(",")
+			insertObject(params[0], params[1], params[2], params[3])
 			
 		return ""
 	
 	@cherrypy.expose
-	def getFromDB(self, str_id):
-		object = Object.get(Object.identifier == str_id)
-		return "%d,%f" % (object.state, object.time)
+	def getFromDB(self, scene_name):
+		scene = Scene.get(Scene.name == scene_name)
+		data = ""
+		for object in scene.objects:
+			data += "%s,%d,%f;" % (object.identifier, object.state, object.time)
+
+		return data[:-1]
+	
+	
 	
 print(os.path.dirname(os.path.realpath(__file__)) + '\static')
 cherrypy.config.update({

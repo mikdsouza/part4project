@@ -1,4 +1,5 @@
 from peewee import *
+import cherrypy
 
 database = SqliteDatabase("unityar.db", threadlocals=True)
 
@@ -13,7 +14,7 @@ class Scene(BaseModel):
 		return self.objects.count()
 	
 	def getCheckedObjectCount(self):
-		return self.objects.select(Object.state == True).count()
+		return self.objects.select().where(Object.state == True).count()
 
 class Object(BaseModel):
 	identifier = CharField()
@@ -28,6 +29,24 @@ def create_db():
 	Object.create_table(True)
 	
 	# Extra scenes that we want to handle need to go in here, otherwise we get concurrency issues
-	scene = Scene.get_or_create(name = 'MultiMarker-Scene')
-	scene = Scene.get_or_create(name = 'ObjectCount-Scene')
-	scene = Scene.get_or_create(name = 'Axes-Scene')
+	Scene.get_or_create(name = 'MultiMarker-Scene')
+	Scene.get_or_create(name = 'ObjectCount-Scene')
+	Scene.get_or_create(name = 'Axes-Scene')
+	
+def insertObject(scene_name, str_id, state, time):
+	try:
+		object = Object.get(Object.identifier == str_id)
+		object.state = int(state) == 1
+		object.time = time
+		object.ip = cherrypy.request.remote.ip
+		object.save()
+	
+	except DoesNotExist:
+		scene = Scene.get_or_create(name = scene_name)
+		object = Object.create(
+		    identifier = str_id,
+		    scene = scene,
+		    state = int(state) == 1,
+		    ip = cherrypy.request.remote.ip,
+		    time = time
+		)

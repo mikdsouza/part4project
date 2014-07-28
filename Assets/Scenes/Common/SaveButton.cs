@@ -8,6 +8,7 @@ public class SaveButton : MonoBehaviour {
 	List<GameObject> markers;
 	private string serverURLPost;
 	private string serverURLGet;
+	private Dictionary<string, changeColour> sceneObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,13 @@ public class SaveButton : MonoBehaviour {
 		foreach (GameObject obj in objs) {
 			if(obj.GetComponent<ObjectCountEventHandler>() != null) {
 				markers.Add(obj);
+			}
+		}
+
+		sceneObjects = new Dictionary<string, changeColour>();
+		foreach(GameObject marker in markers) {
+			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
+				sceneObjects.Add(obj.ID, obj);
 			}
 		}
 
@@ -55,18 +63,18 @@ public class SaveButton : MonoBehaviour {
 
 	void saveToServer() {
 		Debug.Log ("Performing save to server action");
+		WWWForm form = new WWWForm();
+		string serialized = "";
+
 		foreach(GameObject marker in markers) {
 			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
-				WWWForm form = new WWWForm();
-				form.AddField("scene_name", obj.Scene);
-				form.AddField("str_id", obj.ID);
-				form.AddField("state", obj.State);
-				form.AddField("time", getTime().ToString());
-				WWW www = new WWW(serverURLPost, form);
-
-				StartCoroutine(WaitForRequest(www));
+				serialized += obj.Scene + "," + obj.ID + "," + obj.State + "," + getTime() + ";";
 			}
 		}
+
+		form.AddField("data", serialized);
+		WWW www = new WWW(serverURLPost, form);
+		StartCoroutine(WaitForRequest(www));
 	}
 
 	double getTime() {
@@ -90,7 +98,7 @@ public class SaveButton : MonoBehaviour {
 	}   
 
 	//Taken from http://answers.unity3d.com/questions/11021/how-can-i-send-and-receive-data-to-and-from-a-url.html
-	IEnumerator setObjectState(WWW www, changeColour obj, double time)
+	IEnumerator setObjectState(WWW www)
 	{
 		yield return www;
 		
@@ -98,15 +106,30 @@ public class SaveButton : MonoBehaviour {
 		if (www.error == null) {
 			Debug.Log("WWW Ok!: " + www.text);
 
-			string[] prefs = www.text.Split(',');
-			double serverTime;
-			int state;
-			
-			double.TryParse(prefs[1], out serverTime);
-			int.TryParse(prefs[0], out state);
-			
-			if (serverTime > time)
-				obj.State = state;
+			foreach(string line in www.text.Split(';')) {
+				string[] paramServer = line.Split(',');
+				changeColour objekt;
+				sceneObjects.TryGetValue(paramServer[0], out objekt);
+
+				//Get the data from the reg
+				string[] paramReg = PlayerPrefs.GetString(paramServer[0]).Split(',');
+
+				double currentTime = 0;
+				if (paramReg.Length >= 2) {
+					double.TryParse(paramReg[1], out currentTime);
+				}
+
+				double serverTime = 0;
+				double.TryParse(paramServer[2], out serverTime);
+
+				//Comapre times
+				if(currentTime < serverTime) {
+					int state = 0;
+					int.TryParse(paramServer[1], out state);
+					objekt.State = state;
+					PlayerPrefs.SetString(objekt.ID, objekt.State + "," + serverTime);
+				}
+			}
 		} 
 		else {
 			Debug.Log("WWW Error: "+ www.error);
@@ -138,13 +161,13 @@ public class SaveButton : MonoBehaviour {
 
 				obj.State = state;
 
-				if(ServerSettings.useServer) {
-					WWWForm form = new WWWForm();
-					form.AddField("str_id", obj.ID);
-					WWW www = new WWW(serverURLGet, form);
-					StartCoroutine(setObjectState(www, obj, time));
-				}
 			}
+		}
+		if(ServerSettings.useServer) {
+			WWWForm form = new WWWForm();
+			form.AddField("scene_name", Application.loadedLevelName);
+			WWW www = new WWW(serverURLGet, form);
+			StartCoroutine(setObjectState(www));
 		}
 	}
 }
