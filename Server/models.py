@@ -31,7 +31,11 @@ def create_db():
 	# Extra scenes that we want to handle need to go in here, otherwise we get concurrency issues
 	Scene.get_or_create(name = 'MultiMarker-Scene')
 	Scene.get_or_create(name = 'ObjectCount-Scene')
-	Scene.get_or_create(name = 'Axes-Scene')
+	Scene.get_or_create(name = 'axes-Scene')
+	Scene.get_or_create(name = 'example-scene')
+	Scene.get_or_create(name = 'ShowOff-Scene')
+	Scene.get_or_create(name = 'HourGlass-Scene')
+	Scene.get_or_create(name = 'AutoApplyTest-Scene')
 	
 def insertObject(scene_name, str_id, state, time):
 	try:
