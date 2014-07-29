@@ -31,10 +31,10 @@ public class SceneSelect : MonoBehaviour {
 		List<string> levels = new List<string>();
 
 		//Add Levels here
-		levels.Add("example-scene");
-		levels.Add("axes-scene");
-		levels.Add("ObjectCount-Scene");
-		levels.Add("ShowOff-Scene");
+		levels.Add ("example-scene");
+		levels.Add ("axes-scene");
+		levels.Add ("ObjectCount-Scene");
+		levels.Add ("ShowOff-Scene");
 		levels.Add ("HourGlass-Scene");
 		levels.Add ("MultiMarker-Scene");
 		levels.Add ("AutoApplyTest-Scene");
@@ -47,11 +47,14 @@ public class SceneSelect : MonoBehaviour {
 //		levels.Add("lol8");
 //		levels.Add("lol9");
 		
-		float buttonHeight = heightPercentage(5);
-		float buttonWidth = widthPercentage(75);
+		float buttonHeight = heightPercentage(10);
+		float thumbnailSize = heightPercentage(10);
+		float buttonWidth = widthPercentage(75) - thumbnailSize;
 		float buttonSpacing = heightPercentage(2);
-		float buttonX = widthPercentage(11);
+		float buttonX = widthPercentage(11) + thumbnailSize + widthPercentage(2);
+		float thumbnailX = widthPercentage(11);
 		float buttonY = heightPercentage(36);
+		float thumbnailY = buttonY;
 		float totalHeight = levels.Count * (buttonHeight + buttonSpacing) - buttonSpacing;
 		GUIStyle buttonStyle = buttonSkin.button;
 		buttonStyle.fontSize = (int) heightPercentage(3);
@@ -68,11 +71,15 @@ public class SceneSelect : MonoBehaviour {
 			{
 				if (GUI.Button(
 						new Rect(buttonX, buttonY, buttonWidth ,buttonHeight),
-						"Scene: " + levels[i], buttonStyle)) {
+						levels[i], buttonStyle)) {
 					Application.LoadLevel(levels[i]);
 				}
-				
+
+				GUI.DrawTexture(new Rect(thumbnailX, thumbnailY, thumbnailSize, thumbnailSize),
+			                Resources.Load<Texture2D>(levels[i]));
+
 				buttonY += buttonHeight + buttonSpacing;
+				thumbnailY = buttonY;
 			}
 		
 		GUI.EndScrollView();
