@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour {
 	//Crete the main menu
 	void createMenu() {
 		// Make a background box
-		GUI.Box(new Rect(widthPercentage(5),heightPercentage(5),widthPercentage(90),heightPercentage(90)), "Unity AR");
+		GUI.Box(new Rect(widthPercentage(5),heightPercentage(5),widthPercentage(90),heightPercentage(90)), "Construction AR");
 		GUI.Label(new Rect(widthPercentage(5), heightPercentage(13), widthPercentage(90), heightPercentage(4)), "Created by Mikhail and James");
 		
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
