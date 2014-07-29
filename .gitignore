@@ -59,3 +59,4 @@ ehthumbs.db
 Thumbs.db
 Server/*.db
 *.pyc
+Server/static/screenshots/*.png

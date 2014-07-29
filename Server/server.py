@@ -25,9 +25,7 @@ class ARDatabase(object):
 		
 		screenshots = set()
 		for object in objects:
-			print(object.scene.name)
 			filename = "%s\static\screenshots\%s-%s.png" % (current_directory, object.scene.name, object.marker)
-			print("Looking for " + filename)
 			if os.path.isfile(filename):
 				screenshots.add("screenshots/%s-%s.png" % (object.scene.name, object.marker))
 		
