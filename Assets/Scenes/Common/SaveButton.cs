@@ -68,7 +68,7 @@ public class SaveButton : MonoBehaviour {
 
 		foreach(GameObject marker in markers) {
 			foreach(changeColour obj in marker.GetComponentsInChildren<changeColour>()) {
-				serialized += obj.Scene + "," + obj.ID + "," + obj.State + "," + getTime() + ";";
+				serialized += obj.Scene + "," + marker.name + "," + obj.ID + "," + obj.State + "," + getTime() + ";";
 			}
 		}
 

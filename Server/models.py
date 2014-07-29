@@ -18,6 +18,7 @@ class Scene(BaseModel):
 
 class Object(BaseModel):
 	identifier = CharField()
+	marker = CharField()
 	scene = ForeignKeyField(Scene, related_name='objects')
 	state = BooleanField()
 	time = FloatField()
@@ -37,7 +38,7 @@ def create_db():
 	Scene.get_or_create(name = 'HourGlass-Scene')
 	Scene.get_or_create(name = 'AutoApplyTest-Scene')
 	
-def insertObject(scene_name, str_id, state, time):
+def insertObject(scene_name, marker_id, str_id, state, time):
 	try:
 		object = Object.get(Object.identifier == str_id)
 		object.state = int(state) == 1
@@ -49,6 +50,7 @@ def insertObject(scene_name, str_id, state, time):
 		scene = Scene.get_or_create(name = scene_name)
 		object = Object.create(
 		    identifier = str_id,
+			marker = marker_id,
 		    scene = scene,
 		    state = int(state) == 1,
 		    ip = cherrypy.request.remote.ip,

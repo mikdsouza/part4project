@@ -4,11 +4,13 @@
 
 <h1>${scene.name}</h1>
 
+<h2>Objects</h2>
 <div class="object-container">
 	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>Identifier</th>
+				<th>Marker</th>
 				<th>State</th>
 				<th>Time</th>
 				<th>IP</th>
@@ -18,11 +20,17 @@
 			% for object in objects:
 				<tr>
 					<td>${object.identifier}</td>
+					<td>${object.marker}</td>
 					<td>${object.state}</td>
 					<td>${object.time}</td>
 					<td>${object.ip}</td>
 				</tr>
-			%endfor
+			% endfor
 		</tbody>
 	</table>
 </div>
+
+<h2>Screenshots</h2>
+% for screenshot in screenshots:
+	<img src="${screenshot}" style="width: 90%;" /><br /><br />
+% endfor
