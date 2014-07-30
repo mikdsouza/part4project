@@ -50,6 +50,7 @@
      <Compile Include="Assets\Editor\QCAR\Scripts\ComponentFactoryStarter\ComponentFactoryStarter.cs" />
      <Compile Include="Assets\Editor\QCAR\Scripts\Unzipper\SharpZipLibUnzipper.cs" />
      <None Include="Assets\readme_SDK.txt" />
+     <None Include="Assets\Scenes\ShowOffScene\mc\CREDITS.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Editor\QCAR\WebcamProfiles\profiles.xml" />
