@@ -39,6 +39,7 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add ("MultiMarker-Scene");
 		levels.Add ("AutoApplyTest-Scene");
 		levels.Add ("Bouncing-Scene");
+		levels.Add ("House-Scene");
 //		levels.Add("lol2");
 //		levels.Add("lol3");
 //		levels.Add("lol4");
