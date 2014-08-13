@@ -10,15 +10,31 @@ public class ScreenshotButton : MonoBehaviour {
 	private string marker_name = "";
 	private string uploadURL = "http://" + ServerSettings.serverAddress + "/upload";
 
+	List<ObjectCountEventHandler> markers;
+	
+	// Use this for initialization
+	void Start () {
+		markers = new List<ObjectCountEventHandler> ();
+		
+		GameObject[] objs = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+		foreach (GameObject obj in objs) {
+			if(obj.GetComponent<ObjectCountEventHandler>() != null) {
+				markers.Add(obj.GetComponent<ObjectCountEventHandler>());
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void OnGUI () {
 		if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 120, 100, 100), image, style)) {
 
 			// Get the first detected marker name (yucky)
-			MarkerTracker tracker = TrackerManager.Instance.GetTracker<MarkerTracker> ();
-			foreach (Marker marker in tracker.GetMarkers()) {
-				marker_name = marker.Name;
-				break;
+			marker_name = "";
+			foreach (ObjectCountEventHandler marker in markers) {
+				if(marker.ShowLabel) {		
+					marker_name = marker.name;
+					break;
+				}
 			}
 
 			// Check we've got a marker in view
