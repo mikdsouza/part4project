@@ -31,7 +31,7 @@ public class SceneSelect : MonoBehaviour {
 		List<string> levels = new List<string>();
 
 		//Add Levels here
-		levels.Add ("example-scene");
+		//levels.Add ("example-scene");
 		levels.Add ("axes-scene");
 		levels.Add ("ObjectCount-Scene");
 		levels.Add ("ShowOff-Scene");
@@ -40,6 +40,7 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add ("AutoApplyTest-Scene");
 		levels.Add ("Bouncing-Scene");
 		levels.Add ("House-Scene");
+		levels.Add ("Truss-Scene");
 //		levels.Add("lol2");
 //		levels.Add("lol3");
 //		levels.Add("lol4");
