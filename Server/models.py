@@ -38,6 +38,8 @@ def create_db():
 	Scene.get_or_create(name = 'HourGlass-Scene')
 	Scene.get_or_create(name = 'AutoApplyTest-Scene')
 	Scene.get_or_create(name = 'Bouncing-Scene')
+	Scene.get_or_create(name = 'House-Scene')
+	Scene.get_or_create(name = 'Truss-Scene')
 	
 def insertObject(scene_name, marker_id, str_id, state, time):
 	try:
