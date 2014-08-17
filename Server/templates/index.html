@@ -7,6 +7,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Name</th>
 						<th>Progress</th>
 					</tr>
@@ -14,7 +15,8 @@
 				<tbody>
 					% for scene in scenes:
 						<tr>
-							<td><a href="/scene?id=${scene.id}">${scene.name}</a></td>
+							<td><img src="/scenes/${scene.name}.PNG" height="40" /></td>
+							<td style="width: 100%"><a href="/scene?id=${scene.id}">${scene.name}</a></td>
 							<td>${scene.getCheckedObjectCount()} / ${scene.getObjectCount()} </td>
 						</tr>
 					% endfor
