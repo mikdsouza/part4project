@@ -7,7 +7,9 @@ public class SceneSelect : MonoBehaviour {
 	public GUISkin buttonSkin;
 	
 	Vector2 scrollPosition;
+	Rect scrollBox;
 	Touch touch;
+	float totalHeight;
 		
 	void OnGUI () {
 		MainMenuGUISkin.button.fontSize = (int) heightPercentage(4);
@@ -31,7 +33,6 @@ public class SceneSelect : MonoBehaviour {
 		List<string> levels = new List<string>();
 
 		//Add Levels here
-		//levels.Add ("example-scene");
 		levels.Add ("Truss-Scene");
 		levels.Add ("axes-scene");
 		levels.Add ("ObjectCount-Scene");
@@ -41,14 +42,6 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add ("AutoApplyTest-Scene");
 		levels.Add ("Bouncing-Scene");
 		levels.Add ("House-Scene");
-//		levels.Add("lol2");
-//		levels.Add("lol3");
-//		levels.Add("lol4");
-//		levels.Add("lol5");
-//		levels.Add("lol6");
-//		levels.Add("lol7");
-//		levels.Add("lol8");
-//		levels.Add("lol9");
 		
 		float buttonHeight = heightPercentage(10);
 		float thumbnailSize = heightPercentage(10);
@@ -58,19 +51,17 @@ public class SceneSelect : MonoBehaviour {
 		float thumbnailX = widthPercentage(11);
 		float buttonY = heightPercentage(36);
 		float thumbnailY = buttonY;
-		float totalHeight = levels.Count * (buttonHeight + buttonSpacing) - buttonSpacing;
+		totalHeight = levels.Count * (buttonHeight + buttonSpacing) - buttonSpacing;
 		GUIStyle buttonStyle = buttonSkin.button;
 		buttonStyle.fontSize = (int) heightPercentage(3);
 		buttonStyle.alignment = TextAnchor.MiddleLeft;
 		
 		//Create the scroll view
-		scrollPosition = GUI.BeginScrollView(
-				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80), heightPercentage(55)),
-				scrollPosition, 
+		scrollPosition = GUI.BeginScrollView(scrollBox,	scrollPosition, 
 				new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80) - 20, totalHeight),
 				false, false);
-			
-			for(int i = 0; i < levels.Count; i++)
+
+			for (int i = 0; i < levels.Count; i++)
 			{
 				if (GUI.Button(
 						new Rect(buttonX, buttonY, buttonWidth ,buttonHeight),
@@ -90,20 +81,25 @@ public class SceneSelect : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		scrollBox = new Rect(widthPercentage(10),heightPercentage(36),widthPercentage(80), heightPercentage(55));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) 
 			GoBack();
-		
+
 		if(Input.touchCount > 0)
 		{
+			//y-axis of touches is inverted
 			touch = Input.touches[0];
-			if (touch.phase == TouchPhase.Moved)
+			Vector2 touchPos = touch.rawPosition;
+			touchPos.y = Screen.currentResolution.height - touchPos.y;
+			if (scrollBox.Contains(touchPos) && touch.phase == TouchPhase.Moved)
 			{
-				scrollPosition.y += touch.deltaPosition.y;
+				//Scrolling on touch screens in android is very retarted
+				//There is just no way to fix this
+				scrollPosition.y += touch.deltaPosition.y * 3;
 			}
 		}
 	}
