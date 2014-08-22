@@ -30,6 +30,11 @@ public class ApplyAll : MonoBehaviour {
 		ScreenshotButton sc = gameObject.GetComponent(typeof(ScreenshotButton)) as ScreenshotButton;
 		sc.image = Resources.Load<Texture2D>("screenshot-icon");
 		sc.style = new GUIStyle();
+
+		//Set the camer to autofocus
+		if(! CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO)) {
+			Debug.LogWarning("Could not set camera to auto focus mode");
+		}
 	}
 	
 	// Update is called once per frame
