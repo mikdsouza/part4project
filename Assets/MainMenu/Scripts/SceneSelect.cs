@@ -39,9 +39,7 @@ public class SceneSelect : MonoBehaviour {
 		levels.Add ("ShowOff-Scene");
 		levels.Add ("HourGlass-Scene");
 		levels.Add ("MultiMarker-Scene");
-		levels.Add ("AutoApplyTest-Scene");
 		levels.Add ("Bouncing-Scene");
-		levels.Add ("House-Scene");
 		
 		float buttonHeight = heightPercentage(10);
 		float thumbnailSize = heightPercentage(10);

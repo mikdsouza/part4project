@@ -32,13 +32,10 @@ def create_db():
 	# Extra scenes that we want to handle need to go in here, otherwise we get concurrency issues
 	Scene.get_or_create(name = 'MultiMarker-Scene')
 	Scene.get_or_create(name = 'ObjectCount-Scene')
-	Scene.get_or_create(name = 'axes-Scene')
-	Scene.get_or_create(name = 'example-scene')
+	Scene.get_or_create(name = 'axes-scene')
 	Scene.get_or_create(name = 'ShowOff-Scene')
 	Scene.get_or_create(name = 'HourGlass-Scene')
-	Scene.get_or_create(name = 'AutoApplyTest-Scene')
 	Scene.get_or_create(name = 'Bouncing-Scene')
-	Scene.get_or_create(name = 'House-Scene')
 	Scene.get_or_create(name = 'Truss-Scene')
 	
 def insertObject(scene_name, marker_id, str_id, state, time):
