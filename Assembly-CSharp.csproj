@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scenes\Common\SaveButton.cs" />
      <Compile Include="Assets\Scenes\Common\ScreenshotButton.cs" />
      <Compile Include="Assets\Scenes\Common\changeColour.cs" />
+     <Compile Include="Assets\Scenes\ShowOffScene\jetScript.cs" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\Scenes\ShowOffScene\mc\CREDITS.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />
