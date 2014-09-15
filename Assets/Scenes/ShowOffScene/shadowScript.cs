@@ -14,8 +14,8 @@ public class shadowScript : MonoBehaviour {
 	}
 
 	Vector3 GetCurrentOffset () {
-		return new Vector3((float) (-0.0002 * System.Math.Sin(Time.time * 2)), 
-		                   (float) (-0.0002 * System.Math.Sin(Time.time * 2)), 
-		                   (float) (-0.0002 * System.Math.Sin(Time.time * 2)));
+		return new Vector3((float) (-0.0004 * System.Math.Sin(Time.time * 2)), 
+		                   (float) (-0.0004 * System.Math.Sin(Time.time * 2)), 
+		                   (float) (-0.0004 * System.Math.Sin(Time.time * 2)));
 	}
 }

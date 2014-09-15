@@ -29,11 +29,11 @@ public class jetScript : MonoBehaviour {
 
 		missile2Fire = !missile2Fire;
 
-		clone = Instantiate(missile, missile.GetComponent<Transform>().position + (new Vector3(0,(float)-0.1,0))
+		clone = Instantiate(missile, missile.GetComponent<Transform>().position + (new Vector3(0,(float)-0.2,0))
 			, missile.GetComponent<Transform>().rotation) as Rigidbody;
-		clone.AddRelativeForce(new Vector3(100,0,0));
+		clone.AddRelativeForce(new Vector3(500,0,0));
 		clone.GetComponentInChildren<ParticleEmitter>().emit = true;
-		clone.GetComponent<Transform>().localScale = new Vector3((float)0.04,(float)0.04,(float)0.04);
+		clone.GetComponent<Transform>().localScale = new Vector3((float)0.1168631,(float)0.1168631,(float)0.1168631);
 		Destroy(clone.gameObject, 1);
 	}
 }
